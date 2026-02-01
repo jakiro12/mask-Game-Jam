@@ -1,0 +1,104 @@
+.game_selector_container{
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.mask_options_container{
+  width: 70%;
+  height: 80px;
+  outline: 2px solid black;
+}
+.display_mask_options{
+  width: 100%;
+  height: calc(100% - 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.show_mask_visualitaion{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 2px solid black;
+
+}
+.colors_container{
+  width: 30%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 52px);
+  gap: 8px;
+
+}
+.color_btn_pick{
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.color_btn_pick > span{
+  width: 80%;
+  height: 80%;
+}
+.mask3d-wrap {
+  position: relative;
+  width: 400px;              /* ajusta ancho de la mascara */
+  aspect-ratio: 241 / 310;
+  perspective: 900px;
+  perspective-origin: 50% 45%;
+}
+
+.mask3d-front,
+.mask3d-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.mask3d-front {
+  transform: rotateX(10deg) rotateY(-14deg) translateZ(24px);
+  filter:
+    drop-shadow(0 18px 20px rgba(0,0,0,0.25))
+    drop-shadow(0 6px 10px rgba(0,0,0,0.18));
+  transition: transform 220ms ease, filter 220ms ease;
+  z-index: 2;
+}
+
+.mask3d-back {
+  transform:
+    rotateX(10deg)
+    rotateY(-14deg)
+    translateZ(-6px)
+    translateY(8px);
+  opacity: 0.45;
+  filter: blur(1.2px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mask3d-wrap:hover .mask3d-front {
+  transform: rotateX(6deg) rotateY(-8deg) translateZ(32px);
+  filter:
+    drop-shadow(0 26px 26px rgba(0,0,0,0.3))
+    drop-shadow(0 8px 14px rgba(0,0,0,0.22));
+}
+
+.mask3d-wrap:hover .mask3d-back {
+  transform:
+    rotateX(6deg)
+    rotateY(-8deg)
+    translateZ(-10px)
+    translateY(10px);
+}
