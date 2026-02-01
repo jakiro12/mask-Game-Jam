@@ -1,30 +1,94 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useColor } from "../../context/colorContext";
 
 
+const PAINTABLE_PATH_IDS = [
+    "leftEyeBrow",
+  "leftEye",
+  "rightFirstTooth",
+  "rightSecondTooth",
+  "rightEye",
+  "leftHorn",
+  "rightEyeBrow",
+  "rightHorn",
+  "rightFang",
+  "tongue",
+  "leftFang",
+  "leftSecondTooth",
+  "leftFirstTooth",
+] as const;
+type PaintablePathId = typeof PAINTABLE_PATH_IDS[number];
 const DemonMaskNigth=()=>{
-    const [fillsById, setFillsById] = useState<Record<string, string>>({});
-    const {activeColor}=useColor()
-    const fillOf = (id: string, fallback: string) => fillsById[id] ?? fallback;
+    const {activeColor,setMessage}=useColor()
+    const fillOf = (id: PaintablePathId, fallback = "transparent") => {
+  return paintedPaths[id] ?? fallback;
+};
+    
 
+const [paintedPaths, setPaintedPaths] = useState<
+  Record<PaintablePathId, string>
+>({
+  leftEyeBrow: "transparent",
+  leftEye: "transparent",
+  rightFirstTooth: "transparent",
+  rightSecondTooth: "transparent",
+  rightEye: "transparent",
+  leftHorn: "transparent",
+  rightEyeBrow: "transparent",
+  rightHorn: "transparent",
+  rightFang: "transparent",
+  tongue: "transparent",
+  leftFang: "transparent",
+  leftSecondTooth: "transparent",
+  leftFirstTooth: "transparent",
+});
+  const BLOCKED_IDS = new Set(["details", "outline"]);
 
-    const handlePaint = (e: React.MouseEvent<SVGSVGElement>) => {
-  const el = e.target as SVGElement | null;
+const handlePaint = (e: React.MouseEvent<SVGSVGElement>) => {
+  const el = e.target as SVGPathElement | null;
   if (!el) return;
 
-  if (el.tagName.toLowerCase() !== "path") return;
+  if (el.tagName !== "path") return;
 
-  const id = el.id;
-  if (!id) return;
+  const id = el.id as PaintablePathId;
+  if (!PAINTABLE_PATH_IDS.includes(id)) return;
+  if (BLOCKED_IDS.has(id)) return;
 
-  const blocked = new Set(["details", "outline"]);
-  if (blocked.has(id)) return;
-
-  setFillsById((prev) => ({
-    ...prev,
-    [id]: activeColor,
-  }));
+  setPaintedPaths(prev => {
+    if (prev[id] === activeColor) return prev;
+    return {
+      ...prev,
+      [id]: activeColor,
+    };
+  });
 };
+const generateColorKey = (
+  paintedPaths: Record<PaintablePathId, string>
+) => {
+  return PAINTABLE_PATH_IDS
+    .map(id => {
+      const color = paintedPaths[id];
+      if (!color || color === "transparent") return "0";
+      return color.replace("#", "")[0].toLowerCase();
+    })
+    .join("");
+};
+
+
+
+
+useEffect(() => {
+  const completed = PAINTABLE_PATH_IDS.every(
+    id => paintedPaths[id] !== "transparent"
+  );
+
+  if (!completed) return;
+
+  const key = generateColorKey(paintedPaths);
+  setMessage(key);
+  console.log(key)
+}, [paintedPaths]);
+
     return(
          <div className="mask3d-wrap">
             <svg

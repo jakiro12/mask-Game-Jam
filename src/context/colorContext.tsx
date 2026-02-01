@@ -1,17 +1,19 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, type SetStateAction } from "react";
 
 type ColorContextType = {
   activeColor: string;
   setActiveColor: (color: string) => void;
+  message:string,
+  setMessage:React.Dispatch<SetStateAction<string>>;
 };
 
 const ColorContext = createContext<ColorContextType | undefined>(undefined);
 
 export function ColorProvider({ children }: { children: React.ReactNode }) {
-  const [activeColor, setActiveColor] = useState<string>("#ff0000");
-
+  const [activeColor, setActiveColor] = useState<string>("#ffffff");  
+  const [message,setMessage]=useState<string>("")
   return (
-    <ColorContext.Provider value={{ activeColor, setActiveColor }}>
+    <ColorContext.Provider value={{ activeColor, setActiveColor,message,setMessage }}>
       {children}
     </ColorContext.Provider>
   );
