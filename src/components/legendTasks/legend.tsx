@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import '../../App.css'
 import { useColor } from '../../context/colorContext'
 import { useAudio } from '../../context/audioContext';
@@ -19,11 +19,9 @@ function compareHash(current: string, target: string) {
   });
 }
 const LegendAboutCurrentMask=()=>{
-    const {activeColor,message,targetHash,setShowProverb} =useColor()
+    const {activeColor,message,targetHash,setShowProverb,viewPhrase,setViewPhrase} =useColor()
     const{stopMusic}=useAudio()
-    const [viewPhrase,setViewPhrase]=useState<boolean>(false)
    useEffect(() => {
-    console.log(targetHash)
   if (message.toUpperCase() === targetHash.toUpperCase()) {
     setViewPhrase(true)
     stopMusic()    
@@ -47,7 +45,7 @@ const LegendAboutCurrentMask=()=>{
           </span>
         ))}        
             </p>           
-            {viewPhrase ? 
+            {viewPhrase && message ? 
             <button
             onClick={()=>setShowProverb(true)}
             className='btn_coin'>                
