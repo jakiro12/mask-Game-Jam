@@ -1,9 +1,10 @@
 import '../../App.css'
+import { useAudio } from '../../context/audioContext'
 import { useColor } from '../../context/colorContext'
 
 const ColorsToPickWithMouse=()=>{
     const {setActiveColor}=useColor()
-
+    const {startMusic}=useAudio()
     const kabukiColors :string[] = [
   "#7A0000", 
   "#A10000", 
@@ -15,7 +16,10 @@ const ColorsToPickWithMouse=()=>{
   "#0F0F0F", 
   "#1A1A1A", 
 ];
-
+const handlePickAColor=(e:string)=>{
+    setActiveColor(e)
+    startMusic()
+}
     return(
         <section
         className='palet_sections_colors'
@@ -28,7 +32,7 @@ const ColorsToPickWithMouse=()=>{
             <button
             className='color_btn_pick'
             key={i}
-            onClick={()=>setActiveColor(e)}
+            onClick={()=>handlePickAColor(e)}
             >
                 <span
                 style={{backgroundColor:e}}

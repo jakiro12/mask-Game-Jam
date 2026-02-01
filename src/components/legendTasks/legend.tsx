@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../../App.css'
 import { useColor } from '../../context/colorContext'
+import { useAudio } from '../../context/audioContext';
 
 function compareHash(current: string, target: string) {
   return Array.from({ length: target.length }, (_, i) => {
@@ -19,11 +20,13 @@ function compareHash(current: string, target: string) {
 }
 const LegendAboutCurrentMask=()=>{
     const {activeColor,message,targetHash,setShowProverb} =useColor()
+    const{stopMusic}=useAudio()
     const [viewPhrase,setViewPhrase]=useState<boolean>(false)
    useEffect(() => {
     console.log(targetHash)
   if (message.toUpperCase() === targetHash.toUpperCase()) {
-    setViewPhrase(true)    
+    setViewPhrase(true)
+    stopMusic()    
   }
 }, [message, targetHash]);
       const comparison = compareHash(message, targetHash);

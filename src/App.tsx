@@ -8,22 +8,20 @@ import { useColor } from './context/colorContext'
 function App() {
   const{showProverb}=useColor()
   return (
-      <main className='game_selector_container'>
-        {
-          showProverb ?
-          <ModalToShowCurrentPhrase/>
-          :
-          <>
+      <main className='game_selector_container'>                            
           <nav className='mask_options_container'>mascaras a elegir</nav>
           <section className='display_mask_options'>
             <aside className='show_mask_visualitaion'>
               <LegendAboutCurrentMask/>
               <DemonMaskNigth/>
             </aside>
+            {
+              showProverb ?
+          <ModalToShowCurrentPhrase/>
+          :
             <ColorsToPickWithMouse/>
-          </section>
-          </>
-        }
+            }
+          </section>                  
       </main>
        )
 }

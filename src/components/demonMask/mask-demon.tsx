@@ -19,15 +19,12 @@ const PAINTABLE_PATH_IDS = [
 ] as const;
 type PaintablePathId = typeof PAINTABLE_PATH_IDS[number];
 const DemonMaskNigth=()=>{
-    const {activeColor,setMessage}=useColor()
+    const {activeColor,setMessage,gameId}=useColor()
     const fillOf = (id: PaintablePathId, fallback = "transparent") => {
   return paintedPaths[id] ?? fallback;
 };
     
-
-const [paintedPaths, setPaintedPaths] = useState<
-  Record<PaintablePathId, string>
->({
+const initialPaintedPaths: Record<PaintablePathId, string> = {
   leftEyeBrow: "transparent",
   leftEye: "transparent",
   rightFirstTooth: "transparent",
@@ -41,7 +38,8 @@ const [paintedPaths, setPaintedPaths] = useState<
   leftFang: "transparent",
   leftSecondTooth: "transparent",
   leftFirstTooth: "transparent",
-});
+};
+const [paintedPaths, setPaintedPaths] = useState(initialPaintedPaths)
   const BLOCKED_IDS = new Set(["details", "outline"]);
 
 const handlePaint = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -75,7 +73,9 @@ const generateColorKey = (
 };
 
 
-
+useEffect(() => {
+  setPaintedPaths(initialPaintedPaths);
+}, [gameId]);
 
 useEffect(() => {
   const completed = PAINTABLE_PATH_IDS.every(
