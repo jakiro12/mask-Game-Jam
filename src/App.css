@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Butcherman&display=swap');
 .game_selector_container{
   width: 100dvw;
   height: 100dvh;
@@ -5,15 +6,20 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  background-image: url("wall.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
 }
 .mask_options_container{
   width: 70%;
-  height: 80px;
+  height: 70px;
   outline: 2px solid black;
 }
 .display_mask_options{
   width: 100%;
-  height: calc(100% - 80px);
+  height: calc(100% - 70px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,31 +30,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 2px solid black;
-
+  flex-direction: column;
 }
 .colors_container{
   width: 30%;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 52px);
-  gap: 8px;
-
+  grid-template-columns: repeat(3, 1fr);
 }
 .color_btn_pick{
-  width: 50px;
-  height: 50px;
-  border: 2px solid black;
+  width: 55px;
+  height: 55px;
+  border: 1px solid #0505054a;
   border-radius: 10px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;
+  background: linear-gradient(90deg,#9b5a01, #cbac44);  
 }
 .color_btn_pick > span{
   width: 80%;
   height: 80%;
+  border-radius: 5px/5px;
 }
 .mask3d-wrap {
   position: relative;
@@ -101,4 +106,92 @@
     rotateY(-8deg)
     translateZ(-10px)
     translateY(10px);
+}
+.header_legend_about{
+  width: 90%;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.message_hash{
+  font-family: "Butcherman", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  width: fit-content;
+  height: fit-content;
+  letter-spacing: 1.5px;
+  font-size: 22px;
+}
+.hash-char.ok {
+  color: #3cff8f;
+  text-shadow: 0 0 6px rgba(60, 255, 143, 0.6);
+}
+
+.hash-char.bad {
+  color: #ff3b3b;
+  text-shadow: 0 0 6px rgba(255, 59, 59, 0.6);
+}
+.btn_coin{
+   background-image: url("coin.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.modal-proverb {
+  background: radial-gradient(circle at top, #1a0000, #000);
+  border: 1px solid #5a0000;
+  padding: 32px 40px;
+  max-width: 520px;
+  width: 90%;
+  color: #e6dcdc;
+  text-align: center;
+  box-shadow:
+    0 0 20px rgba(120, 0, 0, 0.6),
+    inset 0 0 12px rgba(255, 0, 0, 0.1);
+  animation: ritualAppear 0.4s ease-out;
+}
+
+.modal-proverb p {
+  font-family: 'UnifrakturCook', cursive; /* o la que elegiste */
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  text-shadow:
+    0 0 6px rgba(255, 0, 0, 0.3);
+  margin-bottom: 24px;
+}
+
+.modal-proverb button {
+  background: transparent;
+  border: 1px solid #7a0000;
+  color: #ffb3b3;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 22px;  
+  transition: all 0.2s ease;
+}
+
+.modal-proverb button:hover {
+  background: #7a0000;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
 }

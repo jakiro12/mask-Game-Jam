@@ -1,19 +1,37 @@
 import React, { createContext, useContext, useState, type SetStateAction } from "react";
 
+import demonPhrases from "../utils/demon-phrases.json";
+
+
 type ColorContextType = {
   activeColor: string;
   setActiveColor: (color: string) => void;
   message:string,
   setMessage:React.Dispatch<SetStateAction<string>>;
+  targetHash:string
+  setShowProverb:React.Dispatch<SetStateAction<boolean>>
+  showProverb:boolean
+  resetGame:()=>void
 };
-
+function getRandomTargetHash(): string {
+  const keys = Object.keys(demonPhrases);
+  const randomIndex = Math.floor(Math.random() * keys.length);
+  return keys[randomIndex];
+}
 const ColorContext = createContext<ColorContextType | undefined>(undefined);
 
 export function ColorProvider({ children }: { children: React.ReactNode }) {
   const [activeColor, setActiveColor] = useState<string>("#ffffff");  
   const [message,setMessage]=useState<string>("")
+  const [showProverb, setShowProverb] = useState<boolean>(false)
+ const [targetHash, setTargetHash] = useState(() => getRandomTargetHash());
+  const resetGame=()=>{
+    setMessage("")
+    setActiveColor("#ffffff")
+    setTargetHash(getRandomTargetHash())
+  }
   return (
-    <ColorContext.Provider value={{ activeColor, setActiveColor,message,setMessage }}>
+    <ColorContext.Provider value={{ activeColor, setActiveColor,message,setMessage,targetHash,showProverb, setShowProverb,resetGame }}>
       {children}
     </ColorContext.Provider>
   );

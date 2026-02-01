@@ -85,8 +85,7 @@ useEffect(() => {
   if (!completed) return;
 
   const key = generateColorKey(paintedPaths);
-  setMessage(key);
-  console.log(key)
+  setMessage(key); 
 }, [paintedPaths]);
 
     return(
