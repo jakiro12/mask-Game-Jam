@@ -23,7 +23,6 @@ const LegendAboutCurrentMask=()=>{
    useEffect(() => {
     console.log(targetHash)
   if (message.toUpperCase() === targetHash.toUpperCase()) {
-    console.log("HASH CORRECTO 🎭");
     setViewPhrase(true)    
   }
 }, [message, targetHash]);

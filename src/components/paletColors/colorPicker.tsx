@@ -17,6 +17,12 @@ const ColorsToPickWithMouse=()=>{
 ];
 
     return(
+        <section
+        className='palet_sections_colors'
+        >
+            <p
+            className='legend-instruction'
+            >Fill the Mask with colors and get the hidden message</p>
         <aside className='colors_container'>
             {kabukiColors.map((e:string,i:number)=>
             <button
@@ -30,6 +36,7 @@ const ColorsToPickWithMouse=()=>{
             </button>)
             }           
         </aside>
+        </section>
     )
 }
 
